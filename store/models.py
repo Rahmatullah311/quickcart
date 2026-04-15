@@ -1,10 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from ckeditor.fields import RichTextField  # Import this
 
 
 class Product(models.Model):
     name = models.CharField(max_length=200, verbose_name=_("نام محصول"))
-    description = models.TextField(verbose_name=_("توضیحات"))
+    description = RichTextField(verbose_name=_("توضیحات"))
     price = models.DecimalField(
         max_digits=10, decimal_places=2, verbose_name=_("قیمت (افغانی)")
     )
