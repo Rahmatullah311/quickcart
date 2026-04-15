@@ -1,0 +1,45 @@
+{% extends 'store/base.html' %} {% block title %}محصولات - فروشگاه ساده{% endblock %} {% block content %}
+<h1 style="margin-bottom: 20px">محصولات ما</h1>
+
+<div class="product-grid">
+  {% for product in products %}
+  <a
+    href="{% url 'product_detail' product.id %}"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="product-card">
+      {% if product.image %}
+      <img
+        src="{{ product.image.url }}"
+        alt="{{ product.name }}"
+        class="product-image"
+      />
+      {% else %}
+      <div
+        class="product-image"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #999;
+        "
+      >
+        بدون تصویر
+      </div>
+      {% endif %}
+      <div class="product-info">
+        <div class="product-name">{{ product.name }}</div>
+        <div class="product-price">{{ product.price }} افغانی</div>
+        <div style="color: #666; font-size: 14px">
+          موجودی: {{ product.stock }}
+        </div>
+      </div>
+    </div>
+  </a>
+  {% empty %}
+  <div class="card">
+    <p>در حال حاضر محصولی موجود نیست.</p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

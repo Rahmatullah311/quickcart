@@ -1,0 +1,81 @@
+{% extends 'store/base.html' %} {% block title %}صفحه پیدا نشد - 404{% endblock %} {% block content %}
+<div
+  class="card"
+  style="
+    text-align: center;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  "
+>
+  <div style="font-size: 80px; margin-bottom: 20px">🔍</div>
+  <h1 style="color: #ff3b30; margin-bottom: 20px; font-size: 48px">۴۰۴</h1>
+  <h2 style="margin-bottom: 15px">صفحه مورد نظر پیدا نشد!</h2>
+
+  <p style="color: #666; margin-bottom: 30px; line-height: 1.6">
+    متاسفانه صفحه‌ای که به دنبال آن هستید وجود ندارد یا حذف شده است.<br />
+    ممکن است آدرس را اشتباه وارد کرده باشید.
+  </p>
+
+  <div style="margin-top: 20px">
+    <a
+      href="{% url 'product_list' %}"
+      class="btn btn-primary"
+      style="display: inline-block; width: auto; padding: 12px 30px"
+    >
+      🏠 بازگشت به صفحه اصلی
+    </a>
+  </div>
+
+  <div
+    style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e0e0e0"
+  >
+    <p style="color: #999; font-size: 14px">
+      یا میتوانید از محصولات زیر دیدن کنید:
+    </p>
+  </div>
+</div>
+
+<!-- Show some random products to help user navigate -->
+{% if products %}
+<div style="margin-top: 20px">
+  <h3 style="margin-bottom: 15px; text-align: center">محصولات پیشنهادی</h3>
+  <div class="product-grid">
+    {% for product in products|slice:":3" %}
+    <a
+      href="{% url 'product_detail' product.id %}"
+      style="text-decoration: none; color: inherit"
+    >
+      <div class="product-card">
+        {% if product.image %}
+        <img
+          src="{{ product.image.url }}"
+          alt="{{ product.name }}"
+          class="product-image"
+          style="height: 150px"
+        />
+        {% else %}
+        <div
+          class="product-image"
+          style="
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+          "
+        >
+          بدون تصویر
+        </div>
+        {% endif %}
+        <div class="product-info">
+          <div class="product-name">{{ product.name }}</div>
+          <div class="product-price">{{ product.price }} افغانی</div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endif %} {% endblock %}

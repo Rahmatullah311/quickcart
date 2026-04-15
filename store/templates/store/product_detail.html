@@ -1,0 +1,97 @@
+{% extends 'store/base.html' %} {% block title %}{{ product.name }} - ثبت
+سفارش{% endblock %} {% block content %}
+<div class="card">
+  <a
+    href="{% url 'product_list' %}"
+    style="
+      text-decoration: none;
+      color: #007aff;
+      margin-bottom: 15px;
+      display: inline-block;
+    "
+  >
+    ← بازگشت به محصولات
+  </a>
+
+  {% if product.image %}
+  <img
+    src="{{ product.image.url }}"
+    alt="{{ product.name }}"
+    style="width: 100%; border-radius: 8px; margin-bottom: 20px"
+  />
+  {% endif %}
+
+  <h1>{{ product.name }}</h1>
+  <p style="color: #666; margin: 10px 0">{{ product.description }}</p>
+  <div class="product-price">{{ product.price }} افغانی</div>
+  <p style="color: #666; margin-bottom: 20px">
+    موجودی موجود: {{ product.stock }}
+  </p>
+
+  <h3 style="margin-bottom: 15px">ثبت سفارش</h3>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="quantity">تعداد:</label>
+      <input
+        type="number"
+        name="quantity"
+        id="quantity"
+        value="1"
+        min="1"
+        max="{{ product.stock }}"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="customer_name">نام کامل:</label>
+      <input
+        type="text"
+        name="customer_name"
+        id="customer_name"
+        required
+        placeholder="مثال: احمد رحیمی"
+      />
+    </div>
+
+    <!-- Email field removed -->
+
+    <div class="form-group">
+      <label for="customer_phone">شماره تماس:</label>
+      <input
+        type="tel"
+        name="customer_phone"
+        id="customer_phone"
+        required
+        placeholder="مثال: ۰۷۸۹۱۲۳۴۵۶"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="address">آدرس تحویل:</label>
+      <textarea
+        name="address"
+        id="address"
+        rows="3"
+        required
+        placeholder="آدرس کامل خود را وارد کنید..."
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="special_instructions">توضیحات ویژه (اختیاری):</label>
+      <textarea
+        name="special_instructions"
+        id="special_instructions"
+        rows="2"
+        placeholder="در صورت نیاز توضیحات اضافی..."
+      ></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">ثبت سفارش</button>
+  </form>
+</div>
+{% endblock %}

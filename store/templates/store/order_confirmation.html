@@ -1,0 +1,30 @@
+{% extends 'store/base.html' %} {% block title %}سفارش تایید شد!{% endblock %}
+{% block content %}
+<div class="card" style="text-align: center">
+  <div style="font-size: 60px; margin-bottom: 20px">✅</div>
+  <h1 style="color: #34c759; margin-bottom: 20px">سفارش شما تایید شد!</h1>
+
+  <div
+    style="
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      text-align: right;
+    "
+  >
+    <p><strong>شماره سفارش:</strong> #{{ order.id }}</p>
+    <p><strong>محصول:</strong> {{ order.product.name }}</p>
+    <p><strong>تعداد:</strong> {{ order.quantity }}</p>
+    <p><strong>قیمت کل:</strong> {{ order.total_price }} افغانی</p>
+    <p><strong>وضعیت:</strong> در انتظار تایید</p>
+    <p><strong>شماره تماس:</strong> {{ order.customer_phone }}</p>
+  </div>
+
+  <p style="margin-bottom: 20px">
+    به زودی برای تایید سفارش با شما تماس میگیریم.
+  </p>
+
+  <a href="{% url 'product_list' %}" class="btn btn-primary">ادامه خرید</a>
+</div>
+{% endblock %}
